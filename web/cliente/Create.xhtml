@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="NumeroDocumento:" for="numeroDocumento" />
+                    <h:inputText id="numeroDocumento" value="#{clienteController.clienteActual.numeroDocumento}" title="NumeroDocumento" required="true" requiredMessage="The NumeroDocumento field is required."/>
+                    <h:outputLabel value="NombresCliente:" for="nombresCliente" />
+                    <h:inputText id="nombresCliente" value="#{clienteController.clienteActual.nombresCliente}" title="NombresCliente" required="true" requiredMessage="The NombresCliente field is required."/>
+                    <h:outputLabel value="ApellidosCliente:" for="apellidosCliente" />
+                    <h:inputText id="apellidosCliente" value="#{clienteController.clienteActual.apellidosCliente}" title="ApellidosCliente" required="true" requiredMessage="The ApellidosCliente field is required."/>
+                    <h:outputLabel value="Telefono:" for="telefono" />
+                    <h:inputText id="telefono" value="#{clienteController.clienteActual.telefono}" title="Telefono" required="true" requiredMessage="The Telefono field is required."/>
+                    <h:outputLabel value="FechaNacimiento:" for="fechaNacimiento" />
+                    <h:inputText id="fechaNacimiento" value="#{clienteController.clienteActual.fechaNacimiento}" title="FechaNacimiento" required="true" requiredMessage="The FechaNacimiento field is required.">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="Direccion:" for="direccion" />
+                    <h:inputText id="direccion" value="#{clienteController.clienteActual.direccion}" title="Direccion" required="true" requiredMessage="The Direccion field is required."/>
+                    <h:outputLabel value="Password:" for="password" />
+                    <h:inputText id="password" value="#{clienteController.clienteActual.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                    <h:outputLabel value="FechaCracionCliente:" for="fechaCracionCliente" />
+                    <h:inputText id="fechaCracionCliente" value="#{clienteController.clienteActual.fechaCracionCliente}" title="FechaCracionCliente" required="true" requiredMessage="The FechaCracionCliente field is required.">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="Email:" for="email" />
+                    <h:inputText id="email" value="#{clienteController.clienteActual.email}" title="Email" />
+                    <h:outputLabel value="Ciudad:" for="ciudad" />
+                    <p:selectOneMenu id="ciudad" value="#{clienteController.clienteActual.ciudad}"  required="true" requiredMessage="The Ciudad field is required.">
+                        <f:selectItems value="#{clienteController.listCiudadSelectOne}"
+                                       var="ciudad"
+                                       itemValue="#{ciudad}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="IdGenero:" for="idGenero" />
+                    <h:selectOneMenu id="idGenero" value="#{clienteController.clienteActual.idGenero}" title="IdGenero" required="true" requiredMessage="The IdGenero field is required.">
+                        <f:selectItems value="#{clienteController.listGeneroSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="IdTipoDocumento:" for="idTipoDocumento" />
+                    <h:selectOneMenu id="idTipoDocumento" value="#{clienteController.clienteActual.idTipoDocumento}" title="IdTipoDocumento" required="true" requiredMessage="The IdTipoDocumento field is required.">
+                        <f:selectItems value="#{clienteController.listTipoDocumentoSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandButton action="#{clienteController.addCliente}" value="Guardar"/>
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+
