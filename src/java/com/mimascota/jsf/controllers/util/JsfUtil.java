@@ -1,4 +1,4 @@
-package com.example.jsf.controllers.util;
+package com.mimascota.jsf.controllers.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

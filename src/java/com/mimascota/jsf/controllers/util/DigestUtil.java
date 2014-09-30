@@ -11,7 +11,7 @@
  * To change this template, choose Tools | Templates and open the template in
  * the editor.
  */
-package com.example.jsf.controllers.util;
+package com.mimascota.jsf.controllers.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
