@@ -5,9 +5,14 @@
  */
 package com.mimascota.jpa.entities;
 
+import com.mimascota.jsf.controllers.util.DigestUtil;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -200,7 +205,13 @@ public class Cliente implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+         try {
+            this.password = DigestUtil.generateDigest(password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Date getFechaCracionCliente() {
