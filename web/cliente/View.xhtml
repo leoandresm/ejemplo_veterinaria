@@ -1,12 +1,52 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="View"/></h1>
+                <h:panelGrid columns="2">
+                    <h:outputText value="IdCliente:"/>
+                    <h:outputText value="#{clienteController.clienteActual.idCliente}" title="IdCliente"/>
+                    <h:outputText value="NumeroDocumento:"/>
+                    <h:outputText value="#{clienteController.clienteActual.numeroDocumento}" title="NumeroDocumento"/>
+                    <h:outputText value="NombresCliente:"/>
+                    <h:outputText value="#{clienteController.clienteActual.nombresCliente}" title="NombresCliente"/>
+                    <h:outputText value="ApellidosCliente:"/>
+                    <h:outputText value="#{clienteController.clienteActual.apellidosCliente}" title="ApellidosCliente"/>
+                    <h:outputText value="Telefono:"/>
+                    <h:outputText value="#{clienteController.clienteActual.telefono}" title="Telefono"/>
+                    <h:outputText value="FechaNacimiento:"/>
+                    <h:outputText value="#{clienteController.clienteActual.fechaNacimiento}" title="FechaNacimiento">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="Direccion:"/>
+                    <h:outputText value="#{clienteController.clienteActual.direccion}" title="Direccion"/>
+                    <h:outputText value="Password:"/>
+                    <h:outputText value="#{clienteController.clienteActual.password}" title="Password"/>
+                    <h:outputText value="FechaCracionCliente:"/>
+                    <h:outputText value="#{clienteController.clienteActual.fechaCracionCliente}" title="FechaCracionCliente">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="Email:"/>
+                    <h:outputText value="#{clienteController.clienteActual.email}" title="Email"/>
+                    <h:outputText value="Ciudad:"/>
+                    <h:outputText value="#{clienteController.clienteActual.ciudad}" title="Ciudad"/>
+                    <h:outputText value="IdGenero:"/>
+                    <h:outputText value="#{clienteController.clienteActual.idGenero}" title="IdGenero"/>
+                    <h:outputText value="IdTipoDocumento:"/>
+                    <h:outputText value="#{clienteController.clienteActual.idTipoDocumento}" title="IdTipoDocumento"/>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
     </h:body>
 </html>
 

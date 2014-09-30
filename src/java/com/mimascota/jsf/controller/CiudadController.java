@@ -41,7 +41,7 @@ public class CiudadController implements Serializable {
         return getCiudadFacade().find(id);
     }
 
-    @FacesConverter(forClass = Ciudad.class)
+    @FacesConverter(forClass = Ciudad.class, value = "ciudadConverter")
     public static class CiudadControllerConverter implements Converter {
 
         private static final String SEPARATOR = "#";

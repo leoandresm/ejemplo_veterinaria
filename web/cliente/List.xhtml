@@ -14,13 +14,7 @@
                 <h:commandButton action="#{clienteController.prepareCreate}" value="Crear Cliente"/>
                 <br/>
                 <p:dataTable value="#{clienteController.listaClientes}" var="item">
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IdCliente"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idCliente}"/>
-                    </p:column>
-                    <p:column>
+                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="NumeroDocumento"/>
                         </f:facet>
@@ -54,18 +48,6 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Direccion"/>
-                        </f:facet>
-                        <h:outputText value="#{item.direccion}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Password"/>
-                        </f:facet>
-                        <h:outputText value="#{item.password}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
                             <h:outputText value="FechaCracionCliente"/>
                         </f:facet>
                         <h:outputText value="#{item.fechaCracionCliente}">
@@ -82,19 +64,19 @@
                         <f:facet name="header">
                             <h:outputText value="Ciudad"/>
                         </f:facet>
-                        <h:outputText value="#{item.ciudad}"/>
+                        <h:outputText value="#{item.ciudad.toString()}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="IdGenero"/>
                         </f:facet>
-                        <h:outputText value="#{item.idGenero}"/>
+                        <h:outputText value="#{item.idGenero.toString()}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="IdTipoDocumento"/>
                         </f:facet>
-                        <h:outputText value="#{item.idTipoDocumento}"/>
+                        <h:outputText value="#{item.idTipoDocumento.toString()}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

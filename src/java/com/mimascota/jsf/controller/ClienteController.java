@@ -16,7 +16,10 @@ import com.mimascota.jpa.sessions.TipoDocumentoFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -97,6 +100,17 @@ public class ClienteController implements Serializable {
     public List<TipoDocumento> getListTipoDocumentoSelectOne() {
         return getTipoDocumentoFacade().findAll();
     }
+    
+    public List<Ciudad> getListCiudades(String query) {
+        try {
+            return getCiudadFacade().findByNombre(query);
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 
     private void recargarLista() {
         listaClientes = null;
@@ -122,6 +136,7 @@ public class ClienteController implements Serializable {
 
     public String addCliente() {
         try {
+            clienteActual.setFechaCracionCliente(new Date());
             getClienteFacade().create(clienteActual);
             addSuccessMessage("Crear Cliente", "Cliente Creado Exitosamente");
             recargarLista();

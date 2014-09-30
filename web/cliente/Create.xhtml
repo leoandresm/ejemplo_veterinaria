@@ -31,18 +31,15 @@
                     <h:inputText id="direccion" value="#{clienteController.clienteActual.direccion}" title="Direccion" required="true" requiredMessage="The Direccion field is required."/>
                     <h:outputLabel value="Password:" for="password" />
                     <h:inputText id="password" value="#{clienteController.clienteActual.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
-                    <h:outputLabel value="FechaCracionCliente:" for="fechaCracionCliente" />
-                    <h:inputText id="fechaCracionCliente" value="#{clienteController.clienteActual.fechaCracionCliente}" title="FechaCracionCliente" required="true" requiredMessage="The FechaCracionCliente field is required.">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
                     <h:outputLabel value="Email:" for="email" />
                     <h:inputText id="email" value="#{clienteController.clienteActual.email}" title="Email" />
                     <h:outputLabel value="Ciudad:" for="ciudad" />
-                    <p:selectOneMenu id="ciudad" value="#{clienteController.clienteActual.ciudad}"  required="true" requiredMessage="The Ciudad field is required.">
-                        <f:selectItems value="#{clienteController.listCiudadSelectOne}"
-                                       var="ciudad"
-                                       itemValue="#{ciudad}"/>
-                    </p:selectOneMenu>
+                     <p:autoComplete id="ciudad" value="#{clienteController.clienteActual.ciudad}" 
+                                                        required="true" requiredMessage="The Ciudad field is required."
+                                                        completeMethod="#{clienteController.getListCiudades}" var="ciudad" 
+                                                        itemLabel="#{ciudad}" itemValue="#{ciudad}" converter="ciudadConverter" 
+                                                        forceSelection="true" maxResults="10"/> 
+                    
                     <h:outputLabel value="IdGenero:" for="idGenero" />
                     <h:selectOneMenu id="idGenero" value="#{clienteController.clienteActual.idGenero}" title="IdGenero" required="true" requiredMessage="The IdGenero field is required.">
                         <f:selectItems value="#{clienteController.listGeneroSelectOne}"/>

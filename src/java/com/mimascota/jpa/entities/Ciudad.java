@@ -121,7 +121,7 @@ public class Ciudad implements Serializable {
 
     @Override
     public String toString() {
-        return nombreCiudad;
+        return nombreCiudad + ", " + departamento.getNombreDepartamento() + ", " + departamento.getIdPais().getNombrePais();
     }
     
 }
