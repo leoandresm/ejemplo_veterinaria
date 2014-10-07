@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "cliente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
+     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
     @NamedQuery(name = "Cliente.findByIdCliente", query = "SELECT c FROM Cliente c WHERE c.idCliente = :idCliente"),
     @NamedQuery(name = "Cliente.findByNumeroDocumento", query = "SELECT c FROM Cliente c WHERE c.numeroDocumento = :numeroDocumento"),
     @NamedQuery(name = "Cliente.findByNombresCliente", query = "SELECT c FROM Cliente c WHERE c.nombresCliente = :nombresCliente"),
@@ -53,8 +53,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByFechaNacimiento", query = "SELECT c FROM Cliente c WHERE c.fechaNacimiento = :fechaNacimiento"),
     @NamedQuery(name = "Cliente.findByDireccion", query = "SELECT c FROM Cliente c WHERE c.direccion = :direccion"),
     @NamedQuery(name = "Cliente.findByPassword", query = "SELECT c FROM Cliente c WHERE c.password = :password"),
-    @NamedQuery(name = "Cliente.findByFechaCracionCliente", query = "SELECT c FROM Cliente c WHERE c.fechaCracionCliente = :fechaCracionCliente"),
-    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email")})
+    @NamedQuery(name = "Cliente.findByFechaCreacionCliente", query = "SELECT c FROM Cliente c WHERE c.fechaCreacionCliente = :fechaCreacionCliente"),
+    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
+    @NamedQuery(name = "Cliente.findByEstado", query = "SELECT c FROM Cliente c WHERE c.estado = :estado")})
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -99,13 +100,17 @@ public class Cliente implements Serializable {
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha_cracion_cliente")
+    @Column(name = "fecha_creacion_cliente")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCracionCliente;
+    private Date fechaCreacionCliente;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 120)
     @Column(name = "email")
     private String email;
+     @Basic(optional = false)
+    @NotNull
+    @Column(name = "estado")
+    private boolean estado;
     @JoinTable(name = "cliente_has_rol", joinColumns = {
         @JoinColumn(name = "cliente_id_cliente", referencedColumnName = "id_cliente")}, inverseJoinColumns = {
         @JoinColumn(name = "rol_id_rol", referencedColumnName = "id_rol")})
@@ -132,7 +137,7 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, String numeroDocumento, String nombresCliente, String apellidosCliente, String telefono, Date fechaNacimiento, String direccion, String password, Date fechaCracionCliente) {
+    public Cliente(Integer idCliente, String numeroDocumento, String nombresCliente, String apellidosCliente, String telefono, Date fechaNacimiento, String direccion, String password, Date fechaCreacionCliente, boolean estado) {
         this.idCliente = idCliente;
         this.numeroDocumento = numeroDocumento;
         this.nombresCliente = nombresCliente;
@@ -141,7 +146,8 @@ public class Cliente implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
         this.password = password;
-        this.fechaCracionCliente = fechaCracionCliente;
+        this.fechaCreacionCliente = fechaCreacionCliente;
+        this.estado = estado;
     }
 
     public Integer getIdCliente() {
@@ -214,12 +220,12 @@ public class Cliente implements Serializable {
         }
     }
 
-    public Date getFechaCracionCliente() {
-        return fechaCracionCliente;
+    public Date getFechaCreacionCliente() {
+        return fechaCreacionCliente;
     }
 
-    public void setFechaCracionCliente(Date fechaCracionCliente) {
-        this.fechaCracionCliente = fechaCracionCliente;
+    public void setFechaCreacionCliente(Date fechaCreacionCliente) {
+        this.fechaCreacionCliente = fechaCreacionCliente;
     }
 
     public String getEmail() {
@@ -228,6 +234,14 @@ public class Cliente implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient

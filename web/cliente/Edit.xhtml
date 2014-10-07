@@ -1,12 +1,110 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Editar Cliente</ui:define>
+        
+        <ui:define name="body">
+            <f:view>
+
+
+                <form jsf:id="createFormCliente">
+                    <h1><label value="Create/Edit Cliente"/></h1>
+                    <h:panelGrid columns="3">
+                        <label value="IdCliente:" jsf:for="idCliente" />
+                        <input type="text" jsf:id="idCliente" jsf:value="#{clienteController.clienteActual.idCliente}" title="IdCliente" required="true" jsf:requiredMessage="The IdCliente field is required.">
+                            <f:ajax execute="@this" render="idClienteMessage"/>
+                        </input>
+                        <p:message id="idClienteMessage" for="idCliente"/>
+
+                        <label value="NumeroDocumento:" jsf:for="numeroDocumento" />
+                        <input type="text" jsf:id="numeroDocumento" jsf:value="#{clienteController.clienteActual.numeroDocumento}" title="NumeroDocumento" required="true" jsf:requiredMessage="The NumeroDocumento field is required.">
+                            <f:ajax execute="@this" render="numeroDocumentoMessage"/>
+                        </input>
+                        <p:message id="numeroDocumentoMessage" for="numeroDocumento"/>
+
+                        <label value="NombresCliente:" jsf:for="nombresCliente" />
+                        <input type="text" jsf:id="nombresCliente" jsf:value="#{clienteController.clienteActual.nombresCliente}" title="NombresCliente" required="true" jsf:requiredMessage="The NombresCliente field is required.">
+                            <f:ajax execute="@this" render="nombresClienteMessage"/>
+                        </input>
+                        <p:message id="nombresClienteMessage" for="nombresCliente"/>
+
+                        <label value="ApellidosCliente:" jsf:for="apellidosCliente" />
+                        <input type="text" jsf:id="apellidosCliente" jsf:value="#{clienteController.clienteActual.apellidosCliente}" title="ApellidosCliente" required="true" jsf:requiredMessage="The ApellidosCliente field is required.">
+                            <f:ajax execute="@this" render="apellidosClienteMessage"/>
+                        </input>
+                        <p:message id="apellidosClienteMessage" for="apellidosCliente"/>
+
+                        <label value="Telefono:" jsf:for="telefono" />
+                        <input type="text" jsf:id="telefono" jsf:value="#{clienteController.clienteActual.telefono}" title="Telefono" required="true" jsf:requiredMessage="The Telefono field is required.">
+                            <f:ajax execute="@this" render="telefonoMessage"/>
+                        </input>
+                        <p:message id="telefonoMessage" for="telefono"/>
+
+                        <label value="FechaNacimiento:" jsf:for="fechaNacimiento" />
+                        <input type="date" jsf:id="fechaNacimiento" jsf:value="#{clienteController.clienteActual.fechaNacimiento}" title="FechaNacimiento" required="true" jsf:requiredMessage="The FechaNacimiento field is required.">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                            <f:ajax execute="@this" render="fechaNacimientoMessage"/>
+                        </input>
+                        <p:message id="fechaNacimientoMessage" for="fechaNacimiento"/>
+
+                        <label value="Direccion:" jsf:for="direccion" />
+                        <input type="text" jsf:id="direccion" jsf:value="#{clienteController.clienteActual.direccion}" title="Direccion" required="true" jsf:requiredMessage="The Direccion field is required.">
+                            <f:ajax execute="@this" render="direccionMessage"/>
+                        </input>
+                        <p:message id="direccionMessage" for="direccion"/>
+
+                        <label value="Password:" jsf:for="password" />
+                        <input type="text" jsf:id="password" jsf:value="#{clienteController.clienteActual.password}" title="Password" required="true" jsf:requiredMessage="The Password field is required.">
+                            <f:ajax execute="@this" render="passwordMessage"/>
+                        </input>
+                        <p:message id="passwordMessage" for="password"/>
+
+                        <label value="FechaCreacionCliente:" jsf:for="fechaCreacionCliente" />
+                        <input type="date" jsf:id="fechaCreacionCliente" jsf:value="#{clienteController.clienteActual.fechaCreacionCliente}" title="FechaCreacionCliente" required="true" jsf:requiredMessage="The FechaCreacionCliente field is required.">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                            <f:ajax execute="@this" render="fechaCreacionClienteMessage"/>
+                        </input>
+                        <p:message id="fechaCreacionClienteMessage" for="fechaCreacionCliente"/>
+
+                        <label value="Email:" jsf:for="email" />
+                        <input type="text" jsf:id="email" jsf:value="#{clienteController.clienteActual.email}" title="Email" >
+                            <f:ajax execute="@this" render="emailMessage"/>
+                        </input>
+                        <p:message id="emailMessage" for="email"/>
+
+                        <label value="Ciudad:" jsf:for="ciudad" />
+                        <h:selectOneMenu id="ciudad" value="#{clienteController.clienteActual.ciudad}" title="Ciudad" required="true" requiredMessage="The Ciudad field is required.">
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{fixme}"/>
+                        </h:selectOneMenu>
+                        <p:message id="ciudadMessage" for="ciudad"/>
+
+                        <label value="IdGenero:" jsf:for="idGenero" />
+                        <h:selectOneMenu id="idGenero" value="#{clienteController.clienteActual.idGenero}" title="IdGenero" required="true" requiredMessage="The IdGenero field is required.">
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{fixme}"/>
+                        </h:selectOneMenu>
+                        <p:message id="idGeneroMessage" for="idGenero"/>
+
+                        <label value="IdTipoDocumento:" jsf:for="idTipoDocumento" />
+                        <h:selectOneMenu id="idTipoDocumento" value="#{clienteController.clienteActual.idTipoDocumento}" title="IdTipoDocumento" required="true" requiredMessage="The IdTipoDocumento field is required.">
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{fixme}"/>
+                        </h:selectOneMenu>
+                        <p:message id="idTipoDocumentoMessage" for="idTipoDocumento"/>
+
+                        <h:commandButton action="#{clienteController.addCliente}" value="Guardar"/>
+                    </h:panelGrid>
+                </form>
+            </f:view>
+
+        </ui:define> 
+    </ui:composition>
 </html>
 

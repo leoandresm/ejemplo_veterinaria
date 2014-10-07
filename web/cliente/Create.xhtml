@@ -3,56 +3,150 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-       
-        <f:view>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">Crear Cliente</ui:define>        
+        <ui:define name="body">      
+            <f:view>
+                <form jsf:id="createFormCliente">
+                    <h1><label value="Create/Edit Cliente"/></h1>
+                    <h:panelGrid columns="3">
+                         <label value="#{bundle.CreateEditClienteLabel_rolCliente}" jsf:for="rol" />
+                         <h:selectManyCheckbox id="rol" value="#{clienteController.listaRoles}" layout="grid" 
+                                                          pt:required="true" 
+                                                          converter="rolConverter">  
+                             <f:selectItems value="#{clienteController.listRolSelectOne}"
+                                                       var="rol"
+                                                       itemValue="#{rol}"/>
+                                        <f:ajax execute="@this" render="rolMessage"/>
+                                    </h:selectManyCheckbox> 
+                         <p:message id="rolMessage" for="rol"/>
+                         
+                        <label value="#{bundle.CreateEditClienteLabel_idTipoDocumento}" jsf:for="idTipoDocumento" />
+                        <h:selectOneMenu id="idTipoDocumento" pt:required="true"
+                                         value="#{clienteController.clienteActual.idTipoDocumento}" 
+                                         title="#{bundle.CreateEditClienteTitle_idTipoDocumento}" required="true" 
+                                         requiredMessage="#{bundle.CreateEditClienteRequiredMessage_idTipoDocumento}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{clienteController.listTipoDocumentoSelectOne}"/>
+                        </h:selectOneMenu>
+                        <p:message id="idTipoDocumentoMessage" for="idTipoDocumento"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_numeroDocumento}" jsf:for="numeroDocumento" />
+                        <input type="text" jsf:id="numeroDocumento" 
+                               jsf:value="#{clienteController.clienteActual.numeroDocumento}" 
+                               title="#{bundle.CreateEditClienteTitle_numeroDocumento}" 
+                               required="true" maxlength="12"                               
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_numeroDocumento}"
+                               jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_numeroDocumento}">
+                            <f:validateRegex pattern="[0-9]*"/>
+                            <f:ajax execute="@this" render="numeroDocumentoMessage"/>
+                        </input>
+                        <p:message id="numeroDocumentoMessage" for="numeroDocumento"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_nombresCliente}" jsf:for="nombresCliente" />
+                        <input type="text" jsf:id="nombresCliente" 
+                               jsf:value="#{clienteController.clienteActual.nombresCliente}" 
+                               title="#{bundle.CreateEditClienteTitle_nombresCliente}" 
+                               required="true" maxlength="45" jsf:validator="#{clienteController.validarDocumento}"
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_nombresCliente}"
+                               jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_nombresCliente}">
+                            <f:validateRegex pattern="[a-zA-Z áéíóúÁÉÍÓÚÑñ]*"/>
+                            <f:ajax execute="@this" render="nombresClienteMessage"/>
+                        </input>
+                        <p:message id="nombresClienteMessage" for="nombresCliente"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_apellidosCliente}" jsf:for="apellidosCliente" />
+                        <input type="text" jsf:id="apellidosCliente" 
+                               jsf:value="#{clienteController.clienteActual.apellidosCliente}" 
+                               title="#{bundle.CreateEditClienteTitle_apellidosCliente}" 
+                               required="true" maxlength="45"
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_apellidosCliente}"
+                               jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_apellidosCliente}">
+                            <f:validateRegex pattern="[a-zA-Z áéíóúÁÉÍÓÚÑñ]*"/>
+                            <f:ajax execute="@this" render="apellidosClienteMessage"/>
+                        </input>
+                        <p:message id="apellidosClienteMessage" for="apellidosCliente"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_idGenero}" jsf:for="idGenero" />
+                        <h:selectOneMenu id="idGenero" pt:required="true"
+                                         value="#{clienteController.clienteActual.idGenero}" 
+                                         title="#{bundle.CreateEditClienteTitle_idGenero}" required="true" 
+                                         requiredMessage="#{bundle.CreateEditClienteRequiredMessage_idGenero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
+                            <f:selectItems value="#{clienteController.listGeneroSelectOne}"/>
+                        </h:selectOneMenu>
+                        <p:message id="idGeneroMessage" for="idGenero"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_fechaNacimiento}" jsf:for="fechaNacimiento" />
+                        <input type="date" jsf:id="fechaNacimiento" 
+                               jsf:value="#{clienteController.clienteActual.fechaNacimiento}" 
+                               title="#{bundle.CreateEditClienteTitle_fechaNacimiento}" 
+                               required="true" 
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_fechaNacimiento}">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                            <f:ajax execute="@this" render="fechaNacimientoMessage"/>
+                        </input>
+                        <p:message id="fechaNacimientoMessage" for="fechaNacimiento"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_email}" jsf:for="email" />
+                        <input type="email" jsf:id="email"
+                               jsf:value="#{clienteController.clienteActual.email}" 
+                               title="#{bundle.CreateEditClienteTitle_email}">
+                            <f:ajax execute="@this" render="emailMessage"/>
+                        </input>
+                        <p:message id="emailMessage" for="email"/>                        
+                        
+                        <label value="#{bundle.CreateEditClienteLabel_password}" jsf:for="password" />
+                        <input type="password" jsf:id="password" 
+                               jsf:value="#{clienteController.clienteActual.password}" 
+                               title="#{bundle.CreateEditClienteTitle_password}" 
+                               required="true" 
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_password}">
+                            <f:ajax execute="@this" render="passwordMessage"/>
+                        </input>
+                        <p:message id="passwordMessage" for="password"/>
+                        
+                        <label value="#{bundle.CreateEditClienteLabel_telefono}" jsf:for="telefono" />
+                        <input type="tel" jsf:id="telefono" 
+                               jsf:value="#{clienteController.clienteActual.telefono}" 
+                               title="#{bundle.CreateEditClienteTitle_telefono}" 
+                               required="true" 
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_telefono}">
+                            <f:ajax execute="@this" render="telefonoMessage"/>
+                        </input>
+                        <p:message id="telefonoMessage" for="telefono"/>
+
+                        <label value="#{bundle.CreateEditClienteLabel_direccion}" jsf:for="direccion" />
+                        <input type="text" jsf:id="direccion" 
+                               jsf:value="#{clienteController.clienteActual.direccion}" 
+                               title="#{bundle.CreateEditClienteTitle_direccion}" 
+                               required="true" 
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_direccion}.">
+                            <f:ajax execute="@this" render="direccionMessage"/>
+                        </input>
+                        <p:message id="direccionMessage" for="direccion"/>                        
+
+                        <label value="#{bundle.CreateEditClienteLabel_ciudad}" jsf:for="ciudad" />
+                        <p:autoComplete id="ciudad" value="#{clienteController.clienteActual.ciudad}" 
+                                        required="true" requiredMessage="#{bundle.CreateEditClienteRequiredMessage_ciudad}"
+                                        completeMethod="#{clienteController.getListCiudadesAutoComplete}" 
+                                        var="ciudad" itemLabel="#{ciudad}" itemValue="#{ciudad}" 
+                                        converter="ciudadConverter" pt:required="true"
+                                        forceSelection="true" maxResults="10"/> 
+                        <p:message id="ciudadMessage" for="ciudad"/>
+
+                        <input type="submit" jsf:action="#{clienteController.addCliente}" value="Guardar">
+                        </input>
+                    </h:panelGrid>
+                </form>
+            </f:view>   
 
 
-            <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="NumeroDocumento:" for="numeroDocumento" />
-                    <h:inputText id="numeroDocumento" value="#{clienteController.clienteActual.numeroDocumento}" title="NumeroDocumento" required="true" requiredMessage="The NumeroDocumento field is required."/>
-                    <h:outputLabel value="NombresCliente:" for="nombresCliente" />
-                    <h:inputText id="nombresCliente" value="#{clienteController.clienteActual.nombresCliente}" title="NombresCliente" required="true" requiredMessage="The NombresCliente field is required."/>
-                    <h:outputLabel value="ApellidosCliente:" for="apellidosCliente" />
-                    <h:inputText id="apellidosCliente" value="#{clienteController.clienteActual.apellidosCliente}" title="ApellidosCliente" required="true" requiredMessage="The ApellidosCliente field is required."/>
-                    <h:outputLabel value="Telefono:" for="telefono" />
-                    <h:inputText id="telefono" value="#{clienteController.clienteActual.telefono}" title="Telefono" required="true" requiredMessage="The Telefono field is required."/>
-                    <h:outputLabel value="FechaNacimiento:" for="fechaNacimiento" />
-                    <h:inputText id="fechaNacimiento" value="#{clienteController.clienteActual.fechaNacimiento}" title="FechaNacimiento" required="true" requiredMessage="The FechaNacimiento field is required.">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="Direccion:" for="direccion" />
-                    <h:inputText id="direccion" value="#{clienteController.clienteActual.direccion}" title="Direccion" required="true" requiredMessage="The Direccion field is required."/>
-                    <h:outputLabel value="Password:" for="password" />
-                    <h:inputText id="password" value="#{clienteController.clienteActual.password}" title="Password" required="true" requiredMessage="The Password field is required."/>
-                    <h:outputLabel value="Email:" for="email" />
-                    <h:inputText id="email" value="#{clienteController.clienteActual.email}" title="Email" />
-                    <h:outputLabel value="Ciudad:" for="ciudad" />
-                     <p:autoComplete id="ciudad" value="#{clienteController.clienteActual.ciudad}" 
-                                                        required="true" requiredMessage="The Ciudad field is required."
-                                                        completeMethod="#{clienteController.getListCiudades}" var="ciudad" 
-                                                        itemLabel="#{ciudad}" itemValue="#{ciudad}" converter="ciudadConverter" 
-                                                        forceSelection="true" maxResults="10"/> 
-                    
-                    <h:outputLabel value="IdGenero:" for="idGenero" />
-                    <h:selectOneMenu id="idGenero" value="#{clienteController.clienteActual.idGenero}" title="IdGenero" required="true" requiredMessage="The IdGenero field is required.">
-                        <f:selectItems value="#{clienteController.listGeneroSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="IdTipoDocumento:" for="idTipoDocumento" />
-                    <h:selectOneMenu id="idTipoDocumento" value="#{clienteController.clienteActual.idTipoDocumento}" title="IdTipoDocumento" required="true" requiredMessage="The IdTipoDocumento field is required.">
-                        <f:selectItems value="#{clienteController.listTipoDocumentoSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandButton action="#{clienteController.addCliente}" value="Guardar"/>
-            </h:form>
-        </f:view>
-
-    </h:body>
+        </ui:define>
+    </ui:composition>
 </html>
 

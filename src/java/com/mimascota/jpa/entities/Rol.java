@@ -106,7 +106,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "co.innovapps.almaiz.jpa.entities.Rol[ idRol=" + idRol + " ]";
+        return nombreRol;
     }
     
 }

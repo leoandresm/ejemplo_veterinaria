@@ -8,21 +8,28 @@ package com.mimascota.jsf.controller;
 import com.mimascota.jpa.entities.Ciudad;
 import com.mimascota.jpa.entities.Cliente;
 import com.mimascota.jpa.entities.Genero;
+import com.mimascota.jpa.entities.Rol;
 import com.mimascota.jpa.entities.TipoDocumento;
 import com.mimascota.jpa.sessions.CiudadFacade;
 import com.mimascota.jpa.sessions.ClienteFacade;
 import com.mimascota.jpa.sessions.GeneroFacade;
+import com.mimascota.jpa.sessions.RolFacade;
 import com.mimascota.jpa.sessions.TipoDocumentoFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -34,6 +41,7 @@ public class ClienteController implements Serializable {
    
     private Cliente clienteActual;
     private List<Cliente> listaClientes = null;
+    private List<Rol> listaRoles = null;
     @EJB
     private ClienteFacade clienteFacade;
     @EJB
@@ -42,6 +50,8 @@ public class ClienteController implements Serializable {
     private GeneroFacade generoFacade;
     @EJB
     private TipoDocumentoFacade tipoDocumentoFacade;
+    @EJB
+    private RolFacade rolFacade;
     
     
     
@@ -77,6 +87,18 @@ public class ClienteController implements Serializable {
     public TipoDocumentoFacade getTipoDocumentoFacade() {
         return tipoDocumentoFacade;
     }
+
+    public RolFacade getRolFacade() {
+        return rolFacade;
+    }
+
+    public List<Rol> getListaRoles() {
+        return listaRoles;
+    }
+
+    public void setListaRoles(List<Rol> listaRoles) {
+        this.listaRoles = listaRoles;
+    }
     
     public List<Cliente> getListaClientes() {
         if (listaClientes == null) {
@@ -88,11 +110,7 @@ public class ClienteController implements Serializable {
         }
         return listaClientes;
     }
-    
-    public List<Ciudad> getListCiudadSelectOne() {
-        return getCiudadFacade().findAll();
-    }
-    
+        
     public List<Genero> getListGeneroSelectOne() {
         return getGeneroFacade().findAll();
     }
@@ -101,7 +119,11 @@ public class ClienteController implements Serializable {
         return getTipoDocumentoFacade().findAll();
     }
     
-    public List<Ciudad> getListCiudades(String query) {
+    public List<Rol> getListRolSelectOne() {
+        return getRolFacade().findAll();
+    }
+    
+    public List<Ciudad> getListCiudadesAutoComplete(String query) {
         try {
             return getCiudadFacade().findByNombre(query);
         } catch (Exception ex) {
@@ -118,6 +140,7 @@ public class ClienteController implements Serializable {
 
     public String prepareCreate() {
         clienteActual = new Cliente();
+        listaRoles = new ArrayList<>();
         return "Create";
     }
 
@@ -136,7 +159,9 @@ public class ClienteController implements Serializable {
 
     public String addCliente() {
         try {
-            clienteActual.setFechaCracionCliente(new Date());
+            clienteActual.setFechaCreacionCliente(new Date());
+            clienteActual.setEstado(true);
+            clienteActual.setRolList(listaRoles);
             getClienteFacade().create(clienteActual);
             addSuccessMessage("Crear Cliente", "Cliente Creado Exitosamente");
             recargarLista();
@@ -168,6 +193,28 @@ public class ClienteController implements Serializable {
             addErrorMessage("Error closing resource " + e.getClass().getName(), "Message: " + e.getMessage());
         }
         return "List";
+    }
+    
+     public void validarDocumento(FacesContext contex, UIComponent component, Object value)
+            throws ValidatorException {
+        Cliente clienteConsulta = getClienteFacade().findByDocumento((String) value);
+
+        if (clienteConsulta != null) {
+            if (clienteActual.getIdCliente() != null) {
+                if (!Objects.equals(clienteActual.getIdCliente(), clienteConsulta.getIdCliente())) {
+                    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            ResourceBundle.getBundle("/resources/Bundle").getString("ValidatorDocumentoTitle"),
+                            ResourceBundle.getBundle("/resources/Bundle").getString("ValidatorDocumento")));
+                }
+            } else {
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        ResourceBundle.getBundle("/resources/Bundle").getString("ValidatorDocumentoTitle"),
+                        ResourceBundle.getBundle("/resources/Bundle").getString("ValidatorDocumento")));
+            }
+        } else {
+            String documento = (String) value;
+            clienteActual.setNumeroDocumento(documento);
+        }
     }
 
     private void addErrorMessage(String title, String msg) {

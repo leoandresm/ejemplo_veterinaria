@@ -2,51 +2,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+     <ui:composition template="/template.xhtml">
+        <ui:define name="title">Editar Cliente</ui:define>
+                <ui:define name="body">
+           
+            <f:view>
 
+                <form jsf:id="viewFormCliente">
+                    <h1><h:outputText value="View"/></h1>
+                    <h:panelGrid columns="2">
+                        <label value="IdCliente:" jsf:for="idCliente" />
+                        <input disabled="true" type="text" jsf:id="idCliente" jsf:value="#{clienteController.clienteActual.idCliente}" title="IdCliente" required="true" jsf:requiredMessage="The IdCliente field is required.">
+                        </input>
+                        <label value="NumeroDocumento:" jsf:for="numeroDocumento" />
+                        <input disabled="true" type="text" jsf:id="numeroDocumento" jsf:value="#{clienteController.clienteActual.numeroDocumento}" title="NumeroDocumento" required="true" jsf:requiredMessage="The NumeroDocumento field is required.">
+                        </input>
+                        <label value="NombresCliente:" jsf:for="nombresCliente" />
+                        <input disabled="true" type="text" jsf:id="nombresCliente" jsf:value="#{clienteController.clienteActual.nombresCliente}" title="NombresCliente" required="true" jsf:requiredMessage="The NombresCliente field is required.">
+                        </input>
+                        <label value="ApellidosCliente:" jsf:for="apellidosCliente" />
+                        <input disabled="true" type="text" jsf:id="apellidosCliente" jsf:value="#{clienteController.clienteActual.apellidosCliente}" title="ApellidosCliente" required="true" jsf:requiredMessage="The ApellidosCliente field is required.">
+                        </input>
+                        <label value="Telefono:" jsf:for="telefono" />
+                        <input disabled="true" type="text" jsf:id="telefono" jsf:value="#{clienteController.clienteActual.telefono}" title="Telefono" required="true" jsf:requiredMessage="The Telefono field is required.">
+                        </input>
+                        <label value="FechaNacimiento:" jsf:for="fechaNacimiento" />
+                        <input disabled="true" type="date" jsf:id="fechaNacimiento" jsf:value="#{clienteController.clienteActual.fechaNacimiento}" title="FechaNacimiento" required="true" jsf:requiredMessage="The FechaNacimiento field is required.">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                        </input>
+                        <label value="Direccion:" jsf:for="direccion" />
+                        <input disabled="true" type="text" jsf:id="direccion" jsf:value="#{clienteController.clienteActual.direccion}" title="Direccion" required="true" jsf:requiredMessage="The Direccion field is required.">
+                        </input>
+                        <label value="FechaCreacionCliente:" jsf:for="fechaCreacionCliente" />
+                        <input disabled="true" type="date" jsf:id="fechaCreacionCliente" jsf:value="#{clienteController.clienteActual.fechaCreacionCliente}" title="FechaCreacionCliente" required="true" jsf:requiredMessage="The FechaCreacionCliente field is required.">
+                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                        </input>
+                        <label value="Email:" jsf:for="email" />
+                        <input disabled="true" type="text" jsf:id="email" jsf:value="#{clienteController.clienteActual.email}" title="Email" >
+                        </input>
+                        <label value="Estado:" jsf:for="estado" />
+                        <input disabled="true" type="checkbox" jsf:id="estado" jsf:value="#{clienteController.clienteActual.estado}" title="Estado" required="true" jsf:requiredMessage="The Estado field is required."/>        
+                        <label value="Ciudad:" jsf:for="ciudad" />
+                        <input disabled="true" type="text" jsf:id="ciudad" jsf:value="#{clienteController.clienteActual.ciudad}" title="Ciudad" required="true" jsf:requiredMessage="The Ciudad field is required.">
+                        </input>
+                        <label value="IdGenero:" jsf:for="idGenero" />
+                        <input disabled="true" type="text" jsf:id="idGenero" jsf:value="#{clienteController.clienteActual.idGenero}" title="IdGenero" required="true" jsf:requiredMessage="The IdGenero field is required.">
+                        </input>
+                        <label value="IdTipoDocumento:" jsf:for="idTipoDocumento" />
+                        <input disabled="true" type="text" jsf:id="idTipoDocumento" jsf:value="#{clienteController.clienteActual.idTipoDocumento}" title="IdTipoDocumento" required="true" jsf:requiredMessage="The IdTipoDocumento field is required.">
+                        </input>
+                    </h:panelGrid>
+                </form>
+            </f:view>
 
-            <h:form>
-                <h1><h:outputText value="View"/></h1>
-                <h:panelGrid columns="2">
-                    <h:outputText value="IdCliente:"/>
-                    <h:outputText value="#{clienteController.clienteActual.idCliente}" title="IdCliente"/>
-                    <h:outputText value="NumeroDocumento:"/>
-                    <h:outputText value="#{clienteController.clienteActual.numeroDocumento}" title="NumeroDocumento"/>
-                    <h:outputText value="NombresCliente:"/>
-                    <h:outputText value="#{clienteController.clienteActual.nombresCliente}" title="NombresCliente"/>
-                    <h:outputText value="ApellidosCliente:"/>
-                    <h:outputText value="#{clienteController.clienteActual.apellidosCliente}" title="ApellidosCliente"/>
-                    <h:outputText value="Telefono:"/>
-                    <h:outputText value="#{clienteController.clienteActual.telefono}" title="Telefono"/>
-                    <h:outputText value="FechaNacimiento:"/>
-                    <h:outputText value="#{clienteController.clienteActual.fechaNacimiento}" title="FechaNacimiento">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="Direccion:"/>
-                    <h:outputText value="#{clienteController.clienteActual.direccion}" title="Direccion"/>
-                    <h:outputText value="Password:"/>
-                    <h:outputText value="#{clienteController.clienteActual.password}" title="Password"/>
-                    <h:outputText value="FechaCracionCliente:"/>
-                    <h:outputText value="#{clienteController.clienteActual.fechaCracionCliente}" title="FechaCracionCliente">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="Email:"/>
-                    <h:outputText value="#{clienteController.clienteActual.email}" title="Email"/>
-                    <h:outputText value="Ciudad:"/>
-                    <h:outputText value="#{clienteController.clienteActual.ciudad}" title="Ciudad"/>
-                    <h:outputText value="IdGenero:"/>
-                    <h:outputText value="#{clienteController.clienteActual.idGenero}" title="IdGenero"/>
-                    <h:outputText value="IdTipoDocumento:"/>
-                    <h:outputText value="#{clienteController.clienteActual.idTipoDocumento}" title="IdTipoDocumento"/>
-                </h:panelGrid>
-            </h:form>
-        </f:view>
-
-    </h:body>
+        </ui:define> 
+    </ui:composition>
 </html>
 

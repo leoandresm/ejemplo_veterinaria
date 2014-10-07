@@ -48,9 +48,9 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="FechaCracionCliente"/>
+                            <h:outputText value="FechaCreacionCliente"/>
                         </f:facet>
-                        <h:outputText value="#{item.fechaCracionCliente}">
+                        <h:outputText value="#{item.fechaCreacionCliente}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                     </p:column>
@@ -78,6 +78,12 @@
                         </f:facet>
                         <h:outputText value="#{item.idTipoDocumento.toString()}"/>
                     </p:column>
+                    <p:column>
+                        <p:commandButton icon="ui-icon-search" action="#{clienteController.prepareView}">
+                            <f:setPropertyActionListener value="#{item}" target="#{clienteController.clienteActual}"/>
+                            </p:commandButton>
+                            
+                        </p:column>
                 </p:dataTable>
             </h:form>
         </f:view>

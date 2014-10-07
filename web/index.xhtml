@@ -1,15 +1,32 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
-        <h:form>
-            <h:commandButton action="#{clienteController.prepareList}" value="Listar Clientes"/>
-        </h:form>
+        <form jsf:id="form">
+            <input type="submit" jsf:action="#{clienteController.prepareList}" value="Listar Clientes"/>
+        </form>
+       <div class="container">
+                <h:panelGroup rendered="false">
+                    <form class="form-signin col-sm-offset-4 col-sm-4" role="form" jsf:id="LoginForm">
+                        <h2 class="form-signin-heading">#{bundle.AppWelcome}</h2>
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <p:messages/>
+                        </h:panelGroup>
+                        <input jsf:id="user" type="text" class="form-control" placeholder="Usuario" jsf:value="#{loginBean.username}" jsf:required="true" />
+                        <input jsf:id="password" type="password" class="form-control" placeholder="Contraseña" jsf:value="#{loginBean.password}" jsf:required="true" />
+                        <br/>
+                        <p:commandButton value="#{bundle.LoginButtonLogin}" action="#{loginBean.login}" update="messagePanel" 
+                                         styleClass="btn btn-lg btn-primary btn-block"/>                         
+                    </form>
+                </h:panelGroup>
+
+            </div> <!-- /container -->
     </h:body>
 </html>
 

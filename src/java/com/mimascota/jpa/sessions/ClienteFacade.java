@@ -8,7 +8,10 @@ package com.mimascota.jpa.sessions;
 import com.mimascota.jpa.entities.Cliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +19,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ClienteFacade extends AbstractFacade<Cliente> {
+
     @PersistenceContext(unitName = "VeterinariaPU")
     private EntityManager em;
 
@@ -27,5 +31,16 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
-    
+
+    public Cliente findByDocumento(String numero_documento) {
+        Query q = getEntityManager().createNamedQuery("Cliente.findByNumeroDocumento");
+        q.setParameter("numeroDocumento", numero_documento);
+        try {
+            return (Cliente) q.getSingleResult();
+        } catch (NonUniqueResultException ex) {
+            throw ex;
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
 }
