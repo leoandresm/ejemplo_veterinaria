@@ -11,25 +11,23 @@ import java.security.Principal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class LoginController implements Serializable {
 
     private static final Logger log = Logger.getLogger(LoginController.class.getName());
     private String username;
     private String password;
-    private String rol = "";
-    private Cliente usuario;
+    private Cliente cliente;
     @EJB
     private ClienteFacade clienteFacade;
 
@@ -44,7 +42,7 @@ public class LoginController implements Serializable {
         return username;
     }
 
-    private ClienteFacade getUsuarioFacade() {
+    private ClienteFacade getClienteFacade() {
         return clienteFacade;
     }
 
@@ -79,38 +77,25 @@ public class LoginController implements Serializable {
         return getPrincipal().getName();
     }
     
-//    public Cliente getUserLogueado() {
-//        return getUsuarioFacade().findByDocumento(getLogueado());
-//    }
+    public Cliente getUserLogueado() {
+        return getClienteFacade().findByDocumento(getLogueado());
+    }
 
-//    public String getRol() {
-//        if (getRequest().isUserInRole("webAdmin")) {
-//            rol = "Administrador";
-//        } else if (getRequest().isUserInRole("webDoctor")) {
-//            rol = "Médico";
-//        } else if (getRequest().isUserInRole("webNurse")) {
-//            rol = "Enfermer@";
-//        } else if (getRequest().isUserInRole("webUser")) {
-//            rol = "Usuario";
-//        }
-//        return rol;
-//    }
+    public boolean isAdministrador() {
+        return getRequest().isUserInRole("webAdmin");
+    }
 
-//    public boolean isAdministrador() {
-//        return getRequest().isUserInRole("webAdmin");
-//    }
-//
-//    public boolean isDoctor() {
-//        return getRequest().isUserInRole("webDoctor");
-//    }
-//
-//    public boolean isNurse() {
-//        return getRequest().isUserInRole("webNurse");
-//    }
-//
-//    public boolean isUser() {
-//        return getRequest().isUserInRole("webUser");
-//    }
+    public boolean isDoctor() {
+        return getRequest().isUserInRole("webDoctor");
+    }
+
+    public boolean isSales() {
+        return getRequest().isUserInRole("webSales");
+    }
+
+    public boolean isUser() {
+        return getRequest().isUserInRole("webUser");
+    }
 
     public String login() {
         try {
@@ -121,13 +106,13 @@ public class LoginController implements Serializable {
             limpiar();
 
 //            //Cancela login para usuarios inactivos
-//            if (!usuario.getEstado()) {
-//                logout();
-//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Inactivo", null));
-//                return "/index";
-//            }
+            if (!cliente.getEstado()) {
+                logout();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Inactivo", null));
+                return "/index";
+            }
             //Redirigir a la página de portada
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@ " + usuario.toString(), null));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@ " + cliente.toString(), null));
             return "/user/user_index";
 
         } catch (ServletException ex) {

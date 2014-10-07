@@ -28,7 +28,7 @@
                         <label value="#{bundle.CreateEditClienteLabel_idTipoDocumento}" jsf:for="idTipoDocumento" />
                         <h:selectOneMenu id="idTipoDocumento" pt:required="true"
                                          value="#{clienteController.clienteActual.idTipoDocumento}" 
-                                         title="#{bundle.CreateEditClienteTitle_idTipoDocumento}" required="true" 
+                                         title="#{bundle.CreateEditClienteTitle_idTipoDocumento}" 
                                          requiredMessage="#{bundle.CreateEditClienteRequiredMessage_idTipoDocumento}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{clienteController.listTipoDocumentoSelectOne}"/>
@@ -39,7 +39,7 @@
                         <input type="text" jsf:id="numeroDocumento" 
                                jsf:value="#{clienteController.clienteActual.numeroDocumento}" 
                                title="#{bundle.CreateEditClienteTitle_numeroDocumento}" 
-                               required="true" maxlength="12"                               
+                               required="true" maxlength="12"                                
                                jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_numeroDocumento}"
                                jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_numeroDocumento}">
                             <f:validateRegex pattern="[0-9]*"/>
