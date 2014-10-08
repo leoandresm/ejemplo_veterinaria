@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mimascota.jsf.controller;
+package com.mimascota.jsf.controllers;
 
-import com.mimascota.jpa.entities.TipoDocumento;
-import com.mimascota.jpa.sessions.TipoDocumentoFacade;
+import com.mimascota.jpa.entities.Genero;
+import com.mimascota.jpa.sessions.GeneroFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -20,38 +20,38 @@ import javax.faces.convert.FacesConverter;
  *
  * @author leoandresm
  */
-@Named(value = "tipoDocumentoController")
+@Named(value = "generoController")
 @SessionScoped
-public class TipoDocumentoController implements Serializable {
+public class GeneroController implements Serializable {
     
     @EJB
-    private TipoDocumentoFacade tipoDocumentoFacade;
+    private GeneroFacade generoFacade; 
 
     /**
-     * Creates a new instance of TipoDocumentoController
+     * Creates a new instance of GeneroController
      */
-    public TipoDocumentoController() {
+    public GeneroController() {
     }
 
-    public TipoDocumentoFacade getTipoDocumentoFacade() {
-        return tipoDocumentoFacade;
+    public GeneroFacade getGeneroFacade() {
+        return generoFacade;
     }
     
-    public TipoDocumento getTipoDocumento(java.lang.Short id) {
-        return getTipoDocumentoFacade().find(id);
+    public Genero getGenero(java.lang.Short id) {
+        return getGeneroFacade().find(id);
     }
 
-    @FacesConverter(forClass = TipoDocumento.class)
-    public static class TipoDocumentoControllerConverter implements Converter {
+    @FacesConverter(forClass = Genero.class)
+    public static class GeneroControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            TipoDocumentoController controller = (TipoDocumentoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "tipoDocumentoController");
-            return controller.getTipoDocumento(getKey(value));
+            GeneroController controller = (GeneroController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "generoController");
+            return controller.getGenero(getKey(value));
         }
 
         java.lang.Short getKey(String value) {
@@ -71,11 +71,11 @@ public class TipoDocumentoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof TipoDocumento) {
-                TipoDocumento o = (TipoDocumento) object;
-                return getStringKey(o.getIdTipoDocumento());
+            if (object instanceof Genero) {
+                Genero o = (Genero) object;
+                return getStringKey(o.getIdGenero());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + TipoDocumento.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Genero.class.getName());
             }
         }
 

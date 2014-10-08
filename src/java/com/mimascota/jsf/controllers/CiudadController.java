@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mimascota.jsf.controller;
+package com.mimascota.jsf.controllers;
 
 import com.mimascota.jpa.entities.Ciudad;
 import com.mimascota.jpa.sessions.CiudadFacade;
