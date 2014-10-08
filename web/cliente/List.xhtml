@@ -3,91 +3,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <f:view>
-            <h:form>
-                <h1><h:outputText value="List"/></h1>
-                <h:commandButton action="#{clienteController.prepareCreate}" value="Crear Cliente"/>
-                <br/>
-                <p:dataTable value="#{clienteController.listaClientes}" var="item">
-                     <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="NumeroDocumento"/>
-                        </f:facet>
-                        <h:outputText value="#{item.numeroDocumento}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="NombresCliente"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nombresCliente}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="ApellidosCliente"/>
-                        </f:facet>
-                        <h:outputText value="#{item.apellidosCliente}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Telefono"/>
-                        </f:facet>
-                        <h:outputText value="#{item.telefono}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="FechaNacimiento"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fechaNacimiento}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="FechaCreacionCliente"/>
-                        </f:facet>
-                        <h:outputText value="#{item.fechaCreacionCliente}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <h:outputText value="#{item.email}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Ciudad"/>
-                        </f:facet>
-                        <h:outputText value="#{item.ciudad.toString()}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IdGenero"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idGenero.toString()}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="IdTipoDocumento"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idTipoDocumento.toString()}"/>
-                    </p:column>
-                    <p:column>
-                        <p:commandButton icon="ui-icon-search" action="#{clienteController.prepareView}">
-                            <f:setPropertyActionListener value="#{item}" target="#{clienteController.clienteActual}"/>
-                            </p:commandButton>
-                            
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            #{bundle.ListClienteTitle}
+        </ui:define>
+        <ui:define name="body">
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <h:commandButton action="#{clienteController.prepareCreate}" value="Crear Cliente"/>
+                    <p:dataTable value="#{clienteController.listaClientes}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_idTipoDocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoDocumento.toString()}"/>
                         </p:column>
-                </p:dataTable>
-            </h:form>
-        </f:view>
-
-    </h:body>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroDocumento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_nombresCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombresCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_apellidosCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidosCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="IdGenero"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGenero.toString()}"/>
+                        </p:column>                
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_fechaCreacionCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCreacionCliente}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_ciudad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ciudad.toString()}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="ui-icon-search" action="#{clienteController.prepareView}">
+                                <f:setPropertyActionListener value="#{item}" target="#{clienteController.clienteActual}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-pencil" action="#{clienteController.prepareEdit}">
+                                <f:setPropertyActionListener value="#{item}" target="#{clienteController.clienteActual}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </ui:define>
+    </ui:composition>
 </html>
 

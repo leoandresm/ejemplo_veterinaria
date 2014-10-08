@@ -8,27 +8,26 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">Crear Cliente</ui:define>        
+        <ui:define name="title">#{bundle.CreateClienteTitle}</ui:define>        
         <ui:define name="body">      
             <f:view>
                 <form jsf:id="createFormCliente">
                     <h1><label value="Create/Edit Cliente"/></h1>
                     <h:panelGrid columns="3">
-                         <label value="#{bundle.CreateEditClienteLabel_rolCliente}" jsf:for="rol" />
-                         <h:selectManyCheckbox id="rol" value="#{clienteController.listaRoles}" layout="grid" 
-                                                          pt:required="true" 
-                                                          converter="rolConverter">  
-                             <f:selectItems value="#{clienteController.listRolSelectOne}"
-                                                       var="rol"
-                                                       itemValue="#{rol}"/>
-                                        <f:ajax execute="@this" render="rolMessage"/>
-                                    </h:selectManyCheckbox> 
-                         <p:message id="rolMessage" for="rol"/>
-                         
+                        <label value="#{bundle.CreateEditClienteLabel_rolCliente}" jsf:for="rol" />
+                        <h:selectManyCheckbox id="rol" value="#{clienteController.listaRoles}" layout="grid" 
+                                              pt:required="true" 
+                                              converter="rolConverter"
+                                              requiredMessage="Requerido">  
+                            <f:selectItems value="#{clienteController.listRolSelectOne}"/>
+                            <f:ajax execute="@this" render="rolMessage"/>
+                        </h:selectManyCheckbox> 
+                        <p:message id="rolMessage" for="rol"/>
+
                         <label value="#{bundle.CreateEditClienteLabel_idTipoDocumento}" jsf:for="idTipoDocumento" />
                         <h:selectOneMenu id="idTipoDocumento" pt:required="true"
                                          value="#{clienteController.clienteActual.idTipoDocumento}" 
-                                         title="#{bundle.CreateEditClienteTitle_idTipoDocumento}" 
+                                         title="#{bundle.CreateEditClienteTitle_idTipoDocumento}"  
                                          requiredMessage="#{bundle.CreateEditClienteRequiredMessage_idTipoDocumento}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}" />
                             <f:selectItems value="#{clienteController.listTipoDocumentoSelectOne}"/>
@@ -39,9 +38,8 @@
                         <input type="text" jsf:id="numeroDocumento" 
                                jsf:value="#{clienteController.clienteActual.numeroDocumento}" 
                                title="#{bundle.CreateEditClienteTitle_numeroDocumento}" 
-                               required="true" maxlength="12"                                
-                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_numeroDocumento}"
-                               jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_numeroDocumento}">
+                               required="true" maxlength="12" jsf:validator="#{clienteController.validarDocumento}"                              
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_numeroDocumento}">
                             <f:validateRegex pattern="[0-9]*"/>
                             <f:ajax execute="@this" render="numeroDocumentoMessage"/>
                         </input>
@@ -51,7 +49,7 @@
                         <input type="text" jsf:id="nombresCliente" 
                                jsf:value="#{clienteController.clienteActual.nombresCliente}" 
                                title="#{bundle.CreateEditClienteTitle_nombresCliente}" 
-                               required="true" maxlength="45" jsf:validator="#{clienteController.validarDocumento}"
+                               required="true" maxlength="45" 
                                jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_nombresCliente}"
                                jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_nombresCliente}">
                             <f:validateRegex pattern="[a-zA-Z áéíóúÁÉÍÓÚÑñ]*"/>
@@ -99,7 +97,7 @@
                             <f:ajax execute="@this" render="emailMessage"/>
                         </input>
                         <p:message id="emailMessage" for="email"/>                        
-                        
+
                         <label value="#{bundle.CreateEditClienteLabel_password}" jsf:for="password" />
                         <input type="password" jsf:id="password" 
                                jsf:value="#{clienteController.clienteActual.password}" 
@@ -109,7 +107,7 @@
                             <f:ajax execute="@this" render="passwordMessage"/>
                         </input>
                         <p:message id="passwordMessage" for="password"/>
-                        
+
                         <label value="#{bundle.CreateEditClienteLabel_telefono}" jsf:for="telefono" />
                         <input type="tel" jsf:id="telefono" 
                                jsf:value="#{clienteController.clienteActual.telefono}" 
@@ -125,7 +123,9 @@
                                jsf:value="#{clienteController.clienteActual.direccion}" 
                                title="#{bundle.CreateEditClienteTitle_direccion}" 
                                required="true" 
-                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_direccion}.">
+                               jsf:requiredMessage="#{bundle.CreateEditClienteRequiredMessage_direccion}."
+                               jsf:validatorMessage="#{bundle.CreateEditClienteValidatorMessage_direccion}">
+                            <f:validateRegex pattern="[a-zA-Z0-9 ]*"/>
                             <f:ajax execute="@this" render="direccionMessage"/>
                         </input>
                         <p:message id="direccionMessage" for="direccion"/>                        
@@ -138,14 +138,12 @@
                                         converter="ciudadConverter" pt:required="true"
                                         forceSelection="true" maxResults="10"/> 
                         <p:message id="ciudadMessage" for="ciudad"/>
-
+                        
                         <input type="submit" jsf:action="#{clienteController.addCliente}" value="Guardar">
                         </input>
                     </h:panelGrid>
                 </form>
             </f:view>   
-
-
         </ui:define>
     </ui:composition>
 </html>

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mimascota.jsf.controller;
+package com.mimascota.jsf.controllers;
 
 import com.mimascota.jpa.entities.Cliente;
 import com.mimascota.jpa.sessions.ClienteFacade;
@@ -102,7 +102,7 @@ public class LoginController implements Serializable {
             //Login via the Servlet Context
             getRequest().login(username, password);
 
-//            usuario = getUserLogueado();
+            cliente = getUserLogueado();
             limpiar();
 
 //            //Cancela login para usuarios inactivos

@@ -3,30 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <form jsf:id="form">
-            <input type="submit" jsf:action="#{clienteController.prepareList}" value="Listar Clientes"/>
-        </form>
-       <div class="container">
-                <h:panelGroup rendered="false">
-                    <form class="form-signin col-sm-offset-4 col-sm-4" role="form" jsf:id="LoginForm">
-                        <h2 class="form-signin-heading">#{bundle.AppWelcome}</h2>
-                        <h:panelGroup id="messagePanel" layout="block">
-                            <p:messages/>
-                        </h:panelGroup>
-                        <input jsf:id="user" type="text" class="form-control" placeholder="Usuario" jsf:value="#{loginBean.username}" jsf:required="true" />
-                        <input jsf:id="password" type="password" class="form-control" placeholder="Contraseña" jsf:value="#{loginBean.password}" jsf:required="true" />
-                        <br/>
-                        <p:commandButton value="#{bundle.LoginButtonLogin}" action="#{loginBean.login}" update="messagePanel" 
-                                         styleClass="btn btn-lg btn-primary btn-block"/>                         
-                    </form>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head jsf:id="head">
+        <title>#{bundle.AppName}</title>
+    </head>
+    <body jsf:id="body">        
+        <h:panelGroup rendered="true">
+            <form jsf:id="LoginForm">
+                <h2>#{bundle.AppWelcome}</h2>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <p:messages/>
                 </h:panelGroup>
-
-            </div> <!-- /container -->
-    </h:body>
+                <input jsf:id="user" type="text" placeholder="Usuario" jsf:value="#{loginController.username}" required="true" />
+                <input jsf:id="password" type="password" placeholder="Contraseña" jsf:value="#{loginController.password}" required="true" />
+                <br/>
+                <input type="submit" value="Ingresar" jsf:action="#{loginController.login}">
+                    <f:ajax execute="@this @form" render="messagePanel"/>
+                </input>                         
+            </form>
+        </h:panelGroup>
+    </body>
 </html>
-
