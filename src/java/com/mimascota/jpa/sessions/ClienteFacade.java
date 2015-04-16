@@ -32,9 +32,9 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         super(Cliente.class);
     }
 
-    public Cliente findByDocumento(String numeroDocumento) {
+    public Cliente findByDocumento(String numero_documento) {
         Query q = getEntityManager().createNamedQuery("Cliente.findByNumeroDocumento");
-        q.setParameter("pepito", numeroDocumento);
+        q.setParameter("numeroDocumento", numero_documento);
         try {
             return (Cliente) q.getSingleResult();
         } catch (NonUniqueResultException ex) {
