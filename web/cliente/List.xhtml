@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            #{bundle.ListClienteTitle}
+        </ui:define>
+        <ui:define name="body">
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <h:commandButton action="#{clienteController.prepareCreate}" rendered="#{loginController.administrador}" value="Crear Cliente"/>
+                    <p:dataTable value="#{clienteController.listaClientes}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_idTipoDocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoDocumento.toString()}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_numeroDocumento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroDocumento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_nombresCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombresCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_apellidosCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidosCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="IdGenero"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGenero.toString()}"/>
+                        </p:column>                
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_fechaCreacionCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCreacionCliente}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_ciudad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ciudad.toString()}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="ui-icon-search" action="#{clienteController.prepareView}">
+                                <f:setPropertyActionListener value="#{item}" target="#{clienteController.clienteActual}"/>
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-pencil" action="#{clienteController.prepareEdit}">
+                                <f:setPropertyActionListener value="#{item}" target="#{clienteController.clienteActual}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </ui:define>
+    </ui:composition>
+</html>
+

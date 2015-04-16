@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head jsf:id="head">
+        <title>#{bundle.AppName}</title>
+    </head>
+    <body jsf:id="body">        
+        <h:panelGroup rendered="true">
+            <form jsf:id="LoginForm">
+                <h2>#{bundle.AppWelcome}</h2>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <p:messages/>
+                </h:panelGroup>
+                <input jsf:id="user" type="text" placeholder="Usuario" jsf:value="#{loginController.username}" required="true" />
+                <input jsf:id="password" type="password" placeholder="Contraseña" jsf:value="#{loginController.password}" required="true" />
+                <br/>
+                <input type="submit" value="Ingresar" jsf:action="#{loginController.login}">
+                    <f:ajax execute="@this @form" render="messagePanel"/>
+                </input>                         
+            </form>
+        </h:panelGroup>
+    </body>
+</html>
